@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes,HashRouter } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import MovieDetail from "./pages/MovieDetail";
 
@@ -12,7 +12,7 @@ import Favorites from "./pages/Favorites";
 export default function App() {
  return <>
  
- <BrowserRouter>
+ <HashRouter>
  <NavbarPage/>
  
  <Routes>
@@ -27,6 +27,6 @@ export default function App() {
   <Route path="*" element={<NotFound/>}/>,
  </Routes>
  <BackToTopButton/>
- </BrowserRouter>
+ </HashRouter>
  </>
 }
