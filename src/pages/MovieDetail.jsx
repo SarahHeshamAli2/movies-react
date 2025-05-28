@@ -70,7 +70,7 @@ export default function MediaDetail() {
             <img
               src={`https://image.tmdb.org/t/p/w342${media.poster_path}`}
               alt={type === "movie" ? media.title : media.name}
-              className="img-fluid rounded cute-img"
+              className="img-fluid rounded cute-img w-100"
               loading="lazy"
             />
           </div>

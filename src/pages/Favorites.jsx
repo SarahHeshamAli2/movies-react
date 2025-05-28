@@ -50,9 +50,8 @@ export default function Favorites() {
                     <img
                       src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
                       alt={movie.original_title}
-                      className="img-fluid rounded mb-2"
+                      className="img-fluid w-100 rounded mb-2"
                       height="450"
-                      loading="lazy"
                       style={{ borderRadius: "10px" }}
                     />
                   </Link>
