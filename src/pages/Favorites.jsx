@@ -32,7 +32,6 @@ export default function Favorites() {
             <div
               key={movie.id}
               className="col-md-4 col-lg-3"
-              style={{ maxWidth: "300px" }}
             >
               <div
                 className="inner-col aspect-[2/3] w-full"
@@ -52,7 +51,6 @@ export default function Favorites() {
                       src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
                       alt={movie.original_title}
                       className="img-fluid rounded mb-2"
-                      width="300"
                       height="450"
                       loading="lazy"
                       style={{ borderRadius: "10px" }}

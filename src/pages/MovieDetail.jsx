@@ -7,6 +7,7 @@ import LoadingScreen from "./LoadingScreen";
 import { API_KEY, BASE_URL } from "../services/urls";
 
 export default function MediaDetail() {
+  // Load from localStorage or set to empty array
   const favorites = JSON.parse(localStorage.getItem("favoriteMovies")) || [];
   const [favoritMovies, setFavoritMovies] = useState(favorites);
   const [alreadyInFav, setAlreadyInFav] = useState(false);
@@ -15,6 +16,7 @@ export default function MediaDetail() {
   const [media, setMedia] = useState(null);
   const { loading, startLoading, stopLoading } = useLoading();
 
+  // Check if media is already in favorites when media or favorites change
   useEffect(() => {
     if (media) {
       const isFav = favoritMovies.some((movie) => movie.id === media.id);
@@ -22,17 +24,24 @@ export default function MediaDetail() {
     }
   }, [media, favoritMovies]);
 
+  // Save updated favorites to localStorage
   useEffect(() => {
     localStorage.setItem("favoriteMovies", JSON.stringify(favoritMovies));
   }, [favoritMovies]);
 
-  const addToFavorites = (media) => {
-    if (!alreadyInFav) {
+  // Toggle favorite (add or remove)
+  const toggleFavorite = (media) => {
+    if (alreadyInFav) {
+      const updatedFavorites = favoritMovies.filter((movie) => movie.id !== media.id);
+      setFavoritMovies(updatedFavorites);
+      setAlreadyInFav(false);
+    } else {
       setFavoritMovies([...favoritMovies, media]);
       setAlreadyInFav(true);
     }
   };
 
+  // Fetch media details
   const getMediaById = async () => {
     try {
       startLoading();
@@ -49,6 +58,7 @@ export default function MediaDetail() {
     getMediaById();
   }, [id, type]);
 
+  // Loading or not found states
   if (loading) return <LoadingScreen count={1} meduimScreen={3} detail={true} />;
   if (!media) return <p>Not found.</p>;
 
@@ -87,12 +97,11 @@ export default function MediaDetail() {
               )}
 
               <button
-                onClick={() => addToFavorites(media)}
-                disabled={alreadyInFav}
+                onClick={() => toggleFavorite(media)}
                 className={`btn mt-3 ${alreadyInFav ? "btn-success" : "btn-outline-primary"}`}
                 style={{ minWidth: "160px" }}
               >
-                {alreadyInFav ? " in Favorites ❤️" : "Add to Favorites ➕"}
+                {alreadyInFav ? "Remove From Favorites ❌" : "Add to Favorites ➕"}
               </button>
             </div>
           </div>
